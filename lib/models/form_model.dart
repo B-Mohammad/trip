@@ -1,18 +1,15 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
+import 'package:trip/models/group_data_model.dart';
 
-class FormModel {
+class GroupModel {
   String groupName;
-  List<String> independentVariable = [];
-  List<String> days = [];
+  List<GroupDataModel> groupDayData = [];
 
-  FormModel({
+  GroupModel({
     required this.groupName,
-    required String variable,
-    required String day,
+    required GroupDataModel day,
   }) {
-    independentVariable.add(variable);
-    days.add(day);
+    groupDayData.add(day);
   }
 
   // FormModel copyWith({
@@ -30,8 +27,8 @@ class FormModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'groupName': groupName,
-      'independentVariable': independentVariable,
-      'days': days,
+      // 'independentVariable': independentVariableData,
+      'days': groupDayData,
     };
   }
 
@@ -50,19 +47,15 @@ class FormModel {
   //     FormModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() =>
-      'FormModel(groupName: $groupName, independentVariable: $independentVariable, days: $days)';
+  String toString() => 'FormModel(groupName: $groupName, days: $groupDayData)';
 
   @override
-  bool operator ==(covariant FormModel other) {
+  bool operator ==(covariant GroupModel other) {
     if (identical(this, other)) return true;
 
-    return other.groupName == groupName &&
-        listEquals(other.independentVariable, independentVariable) &&
-        other.days == days;
+    return other.groupName == groupName && other.groupDayData == groupDayData;
   }
 
   @override
-  int get hashCode =>
-      groupName.hashCode ^ independentVariable.hashCode ^ days.hashCode;
+  int get hashCode => groupName.hashCode ^ groupDayData.hashCode;
 }
