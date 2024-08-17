@@ -322,13 +322,13 @@ class MainPageController extends GetxController {
 
     Get.snackbar("title", "",
         backgroundColor: Colors.green.withOpacity(0.5),
-        margin: EdgeInsets.all(8),
-        titleText: Text(
+        margin: const EdgeInsets.all(8),
+        titleText: const Text(
           "ذخیره سازی...",
           style: TextStyle(fontWeight: FontWeight.bold),
           textDirection: TextDirection.rtl,
         ),
-        messageText: Text(
+        messageText: const Text(
           "فایل ذخیره شد",
           textDirection: TextDirection.rtl,
         ));

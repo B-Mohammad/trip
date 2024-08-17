@@ -795,7 +795,6 @@ class _MainPageScreenState extends State<MainPageScreen> {
                                           }
                                         } else {
                                           ///Good
-                                          print("asdasdsd");
                                           progress();
                                         }
                                       } else {
