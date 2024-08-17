@@ -171,8 +171,9 @@ class _MainPageScreenState extends State<MainPageScreen> {
                                                   .map((e) => DataCell(Center(
                                                         child: Text(
                                                           e.toString(),
-                                                          style: TextStyle(
-                                                              fontSize: 12),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 12),
                                                           textAlign:
                                                               TextAlign.center,
                                                         ),
@@ -180,7 +181,7 @@ class _MainPageScreenState extends State<MainPageScreen> {
                                                   .toList()))
                                           .toList(),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 28,
                                     ),
                                     DataTable(
@@ -199,8 +200,8 @@ class _MainPageScreenState extends State<MainPageScreen> {
                                                   label: Center(
                                                 child: Text(
                                                   e,
-                                                  style:
-                                                      TextStyle(fontSize: 12),
+                                                  style: const TextStyle(
+                                                      fontSize: 12),
                                                   textAlign: TextAlign.center,
                                                 ),
                                               )),
@@ -213,15 +214,16 @@ class _MainPageScreenState extends State<MainPageScreen> {
                                                   .map((e) => DataCell(Center(
                                                         child: Text(
                                                           e.toString(),
-                                                          style: TextStyle(
-                                                              fontSize: 12),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 12),
                                                           textAlign:
                                                               TextAlign.center,
                                                         ),
                                                       )))
                                                   .toList())
                                         ]),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 28,
                                     ),
                                     DataTable(
@@ -240,8 +242,8 @@ class _MainPageScreenState extends State<MainPageScreen> {
                                                   label: Center(
                                                 child: Text(
                                                   e,
-                                                  style:
-                                                      TextStyle(fontSize: 12),
+                                                  style: const TextStyle(
+                                                      fontSize: 12),
                                                   textAlign: TextAlign.center,
                                                 ),
                                               )),
@@ -253,15 +255,16 @@ class _MainPageScreenState extends State<MainPageScreen> {
                                                   .map((e) => DataCell(Center(
                                                         child: Text(
                                                           e!.round().toString(),
-                                                          style: TextStyle(
-                                                              fontSize: 12),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 12),
                                                           textAlign:
                                                               TextAlign.center,
                                                         ),
                                                       )))
                                                   .toList())
                                         ]),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 28,
                                     ),
                                     if (_controller.comment.isNotEmpty)
@@ -737,11 +740,20 @@ class _MainPageScreenState extends State<MainPageScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 GetBuilder<MainPageController>(
-                                  builder: (controller) => IconButton(color: Colors.green,tooltip: "ذخیره سازی",
-                                      onPressed: !_controller.banner
-                                          ? () => _controller.saveAsSheet()
-                                          : null,
-                                      icon: const Icon(Icons.download)),
+                                  builder: (controller) => Container(
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle),
+                                    child: IconButton(
+                                        color: Colors.green,
+                                        tooltip: "ذخیره سازی",
+                                        onPressed: !_controller.banner
+                                            ? () => _controller.saveAsSheet()
+                                            : null,
+                                        icon: const Icon(
+                                          Icons.download,
+                                        )),
+                                  ),
                                 ),
                                 // Container(
                                 //   decoration: BoxDecoration(
