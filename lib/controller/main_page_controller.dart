@@ -308,6 +308,7 @@ class MainPageController extends GetxController {
       ].map((e) => TextCellValue(e.toString())).toList());
     }
 
+    print("object");
     if (kIsWeb) {
       final fileBytes = excel.save(fileName: 'trip.xlsx');
     } else {
