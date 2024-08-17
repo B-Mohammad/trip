@@ -1,8 +1,15 @@
+import 'dart:io';
+
+import 'package:excel/excel.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:trip/models/form_model.dart';
 import 'package:trip/models/group_data_model.dart';
 import 'package:trip/models/independent_variable_data_model.dart';
 import 'package:trip/utils/repository.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MainPageController extends GetxController {
   List<GroupModel>? listGroupModel;
@@ -14,6 +21,7 @@ class MainPageController extends GetxController {
   Map<String, dynamic> genResult = {};
   Map<String, double?> zResalt = {};
   Map<String, dynamic> comment = {};
+  String gName = "";
 
   Future<void> getListFormModels() async {
     listGroupModel = await Repository.readExcelFile();
@@ -21,6 +29,7 @@ class MainPageController extends GetxController {
   }
 
   void getDays(String x) {
+    gName = x;
     te = listGroupModel!
         .singleWhere((element) => element.groupName == x)
         .groupDayData
@@ -249,5 +258,79 @@ class MainPageController extends GetxController {
     banner = false;
     print(result);
     update();
+  }
+
+  Future<void> saveAsSheet() async {
+    final excel = Excel.createExcel();
+    final sheet = excel['Sheet1'];
+    sheet.appendRow([
+      "نام گروه کاربری",
+      "نام متغیر مستقل",
+      "تعداد سفر کل",
+      " سهم ورود و خروج",
+      "ساعت اوج سفر",
+      "تقاضای پارکینگ",
+      "دوره اوج پارکینگ",
+      "متوسط تعداد سرنشين سواري",
+      "متوسط کل گروه مراجعان",
+      "سهم خودروی شخصی",
+      "سهم موتور یا دوچرخه",
+      "سهم تاکسی",
+      "سهم مترو",
+      "سهم اتوبوس",
+      "سهم پیاده",
+      "سهم تاکسی اینترنتی",
+      "سهم سرویس",
+      "متوسط ماندگاري (دقیقه)",
+      "توضیحات 1"
+    ].map((e) => TextCellValue(e)).toList());
+    for (var element in result) {
+      sheet.appendRow([
+        gName,
+        element[0],
+        element[1],
+        genResult["جهت توزیع"],
+        genResult["ساعت اوج سفر"],
+        element[2],
+        genResult["زمان اوج تقاضای پارکینگ"],
+        genResult["  متوسط سرنشینان سواری"],
+        genResult["  متوسط گروه مراجعان"],
+        zResalt["  سهم خودرو شخصی"],
+        zResalt["  سهم موتور یا دوچرخه"],
+        zResalt["سهم تاکسی"],
+        zResalt["سهم مترو"],
+        zResalt["سهم اتوبوس"],
+        zResalt["سهم پیاده"],
+        zResalt["سهم تاکسی اینترنتی"],
+        zResalt["سهم سرویس "],
+        genResult[" متوسط ماندگاری"],
+        comment["توضیحات"]
+      ].map((e) => TextCellValue(e.toString())).toList());
+    }
+
+    if (kIsWeb) {
+      final fileBytes = excel.save(fileName: 'trip.xlsx');
+    } else {
+      var fileBytes = excel.save();
+      var directory = await getApplicationDocumentsDirectory();
+      if (fileBytes != null) {
+        File("${directory.path}/trip.xlsx")
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(fileBytes);
+      }
+    }
+
+    Get.snackbar("title", "",
+        backgroundColor: Colors.green.withOpacity(0.5),
+        margin: EdgeInsets.all(8),
+        titleText: Text(
+          "ذخیره سازی...",
+          style: TextStyle(fontWeight: FontWeight.bold),
+          textDirection: TextDirection.rtl,
+        ),
+        messageText: Text(
+          "فایل ذخیره شد",
+          textDirection: TextDirection.rtl,
+        ));
   }
 }

@@ -736,7 +736,6 @@ class _MainPageScreenState extends State<MainPageScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-
                                 // Container(
                                 //   decoration: BoxDecoration(
                                 //       shape: BoxShape.circle,
@@ -845,9 +844,7 @@ class _MainPageScreenState extends State<MainPageScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        onPressed: () {
-          print(_controller.listGroupModel);
-        },
+        onPressed: !_controller.banner ? () => _controller.saveAsSheet() : null,
         tooltip: 'خروجی گرفتن',
         child: const Icon(Icons.file_download_outlined),
       ),
